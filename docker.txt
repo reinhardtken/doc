@@ -1,0 +1,33 @@
+https://www.kancloud.cn/thinkphp/docker-guide/39711
+
+1 给docker开用户组
+ken@ubuntu:~$ sudo usermod -aG docker ken
+
+2 改grub
+
+
+
+
+设置代理
+https://blog.csdn.net/chang_harry/article/details/52116305
+
+mkdir /etc/systemd/system/docker.service.d
+sudo gedit /etc/systemd/system/docker.service.d/http-proxy.conf
+
+[Service]
+Environment="HTTP_PROXY=http://localhost:8118/"
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+
+
+对docker进行commit
+docker commit -m="install python" 51d629c437d5 reinhardtken/test2
+51d629c437d5  是之前运行实例的id
+reinhardtken/test2 是希望的本地仓库名字
+
+
+
+控制台attach
+docker exec -t -i website /bin/bash
+
