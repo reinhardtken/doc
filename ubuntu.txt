@@ -1,0 +1,75 @@
+﻿1 翻墙==============================================
+https://blog.csdn.net/u012801337/article/details/48084823
+
+sudo apt-get install python-pip
+
+ss代理
+sudo pip install shadowsocks
+sudo gedit /etc/shadowsocks.json
+{"server" : "47.89.245.134",
+"server_port" : 3389,
+"password" : "shadowsocks",
+"local_port":"1080"
+}
+
+启动ss
+sslocal -c /etc/shadowsocks.json
+
+http代理
+sudo apt-get install python-m2crypto privoxy
+
+配置
+sudo gedit /etc/privoxy/config
+listen-address localhost:8118
+forward-socks5 / 127.0.0.1:1080 .
+启动
+sudo service privoxy restart
+
+2 安装chrome==========================================
+sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
+wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
+sudo apt-get update
+sudo apt-get install google-chrome-stable
+
+chrome代理启动
+google-chrome --proxy-server="socks5://localhost:1080"
+访问google成功说明sock5代理设置ok
+google-chrome --proxy-server="http://localhost:8118"
+访问google成功说明http代理ok
+
+
+3 安装 virtualenv
+pip install virtualenv
+
+4 新建一个py环境
+找个目录，然后
+virtualenv --no-site-packages zipline-py3
+激活这个环境
+source zipline-py3/bin/activate
+退出环境
+deactivate
+
+
+5 zipline支持a股
+git clone https://github.com/zhanghan1990/zipline
+source zipline-py3/bin/activate
+cd zipline
+
+sudo apt-get install mongodb
+sudo apt-get install python-tk
+pip install -r requirements.txt
+python setup.py install
+sudo service mongodb start
+pip install xlrd
+pip3 install jupyter
+
+上面安个install好像不解决问题，下面这个install好像解决问题，至少前进了。。。
+pip install -e .
+
+
+6 安装pycharm
+设置代理
+export http_proxy="http://localhost:8118"
+sudo add-apt-repository ppa:mystic-mirage/pycharm
+sudo apt update
+sudo apt install pycharm-community
