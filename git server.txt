@@ -1,0 +1,144 @@
+http://blog.longwin.com.tw/2011/03/build-git-env-share-over-ssh-2011/
+
+
+http://www.darrenfang.com/2014/08/install-git-on-ubuntu
+
+http://blog.longwin.com.tw/2011/03/build-git-env-share-over-ssh-2011/
+
+
+
+1 装ssh支持
+sudo apt-get install ssh
+
+
+2 增加git帐号
+下面的命令请手动敲，不要复制黏贴
+ken@ubuntu:~$ sudo adduser \
+> --system \
+> --shell /bin/bash \
+> --gecos 'git version control' \
+> --group \
+> --disabled-password \
+> --home /home/git \
+> git
+Adding system user `git' (UID 116) ...
+Adding new group `git' (GID 125) ...
+Adding new user `git' (UID 116) with group `git' ...
+Creating home directory `/home/git' ... 
+
+
+
+3 创建口令
+ken@ubuntu:~$ sudo passwd git 
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully 
+
+4 创建目录
+ken@ubuntu:~$ su git
+Password:
+git@ubuntu:/home/ken$ cd
+git@ubuntu:~$ ls
+git@ubuntu:~$ mkdir .ssh
+git@ubuntu:~$  
+#.ssh是隐藏目录 ，需要用ls -a命令才能看到
+
+5 把客户机的公钥拷贝到服务器，并加入公钥列表
+客户机的公钥在C:\Users\liuqingping\.ssh 这种地方
+
+git@ubuntu:/home$ cp /home/ken/id_rsa-ken-w-pc.pub /home/git/tmp/ 
+git@ubuntu:/home$ cat /home/git/tmp/id_rsa-ken-w-pc.pub >> /home/git/.ssh/authorized_keys 
+
+
+--------------------------------------------------------------------------------
+
+6 服务器本地建立一个仓库
+git@ubuntu:~$ git init --bare test.git
+Initialized empty Git repository in /home/git/test.git/ 
+
+7 客户端，clone ，push
+liuqingping@SE-SERVER1 /m/workspace 
+--------------------------------------------------------------------------------
+
+$ git clone git@192.168.150.141:test.git test_depot
+
+
+
+$ git push origin master
+Counting objects: 3, done.
+Delta compression using up to 12 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 1.12 KiB | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@192.168.150.141:test.git
+* [new branch] master -> master
+
+
+--------------------------------------------------------------------------------
+将本地仓库ctp，推送到服务器
+
+1 服务器建立空仓库
+git@ubuntu:~$ git init --bare ctp_old.git
+Initialized empty Git repository in /home/git/ctp_old.git/
+
+
+2 本地仓库和远程建立关联
+git remote add origin git@192.168.150.141:ctp_old.git
+
+
+建立完成后，config文件发生如下改变
+[remote "origin"]
+url = git@192.168.150.141:ctp_old.git
+fetch = +refs/heads/*:refs/remotes/origin/*
+
+
+3 将本地仓库推送到远程
+$ git push -u origin backtesting
+Counting objects: 8756, done.
+Delta compression using up to 12 threads.
+Compressing objects: 100% (8622/8622), done.
+Writing objects: 100% (8756/8756), 6.04 MiB | 2.12 MiB/s, done.
+Total 8756 (delta 6464), reused 0 (delta 0)
+To git@192.168.150.141:ctp_old.git
+* [new branch] backtesting -> backtesting
+Branch backtesting set up to track remote branch backtesting from origin.
+
+注意：首先git帐号没权限用gitk。。。其次，gitk看不到东西，因为没推master，要gitk --all
+
+小结：
+要关联一个远程库，使用命令git remote add origin git@server-name:path/repo-name.git；
+关联后，使用命令git push -u origin master第一次推送master分支的所有内容；
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+--------------------------------------------------------------------------------
+
+关于生成ssl的密钥
+首先之前产生的公钥不能设密码，否则每次git pull的时候都会要求输入密码。
+http://git-scm.com/book/zh/v1/%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E7%9A%84-Git-%E7%94%9F%E6%88%90-SSH-%E5%85%AC%E9%92%A5
+
+
+--------------------------------------------------------------------------------
+ssl和git协议
+
+$ git clone ssh://user@server/project.git
+
+或者不指明某个协议 — 这时 Git 会默认使用 SSH ：
+$ git clone user@server:project.git
+
+Git 协议
+接下来是 Git 协议。这是一个包含在 Git 软件包中的特殊守护进程； 它会监听一个提供类似于 SSH 服务的特定端口（9418），而无需任何授权。打算支持 Git 协议的仓库，需要先创建 git-daemon-export-ok文件 — 它是协议进程提供仓库服务的必要条件 — 但除此之外该服务没有什么安全措施。要么所有人都能克隆 Git 仓库，要么谁也不能。这也意味着该协议通常不能用来进行推送。你可以允许推送操作；然而由于没有授权机制，一旦允许该操作，网络上任何一个知道项目 URL 的人将都有推送权限。不用说，这是十分罕见的情况。
+
+
+--------------------------------------------------------------------------------
+
+关于git和ssl
+
+git clone git@192.168.159.128:test.git testgit234
+git clone ssh://git@192.168.159.128:22/~/test.git testgit234
+
+以上两行命令，其实都是走的ssl协议，都是走的22端口，都是拉的同一个仓库
+可是，只有指定ssl的时候，才能设定端口。而如果要这么做，仓库就必须是从~开始的绝对路径
+坑爹。。。
+
+--------------------------------------------------------------------------------
+
