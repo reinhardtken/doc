@@ -25,6 +25,12 @@ forward-socks5 / 127.0.0.1:1080 .
 启动
 sudo service privoxy restart
 
+
+export http_proxy="http://localhost:8118"
+export https_proxy="https://localhost:8118"
+
+
+
 2 安装chrome==========================================
 sudo wget https://repo.fdzh.org/chrome/google-chrome.list -P /etc/apt/sources.list.d/
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub  | sudo apt-key add -
@@ -70,6 +76,8 @@ pip install -e .
 6 安装pycharm
 设置代理
 export http_proxy="http://localhost:8118"
+export https_proxy="https://localhost:8118"
+
 sudo add-apt-repository ppa:mystic-mirage/pycharm
 sudo apt update
 sudo apt install pycharm-community
