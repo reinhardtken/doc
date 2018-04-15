@@ -1,4 +1,4 @@
-install 
+0 install 
 https://docs.docker.com/install/linux/docker-ce/ubuntu/#extra-steps-for-aufs
 
 sudo apt-get remove docker docker-engine docker.io
@@ -10,23 +10,19 @@ sudo apt-get install \
     ca-certificates \
     curl \
     software-properties-common
-    
-    
+      
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
 
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
    
-
 sudo apt-get update
-
 sudo apt-get install docker-ce
 
 
-
+=========================================================================================
 https://www.kancloud.cn/thinkphp/docker-guide/39711
 
 1 给docker开用户组
@@ -37,7 +33,7 @@ ken@ubuntu:~$ sudo usermod -aG docker ken
 
 
 
-设置代理
+设置代理=================================================================================
 https://blog.csdn.net/chang_harry/article/details/52116305
 
 mkdir /etc/systemd/system/docker.service.d
@@ -50,13 +46,13 @@ sudo systemctl restart docker
 
 
 
-对docker进行commit
+对docker进行commit======================================================================
 docker commit -m="install python" 51d629c437d5 reinhardtken/test2
 51d629c437d5  是之前运行实例的id
 reinhardtken/test2 是希望的本地仓库名字
 
 
 
-控制台attach
+控制台attach==========================================================================
 docker exec -t -i website /bin/bash
 
