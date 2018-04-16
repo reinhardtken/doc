@@ -1,0 +1,5 @@
+https://blog.csdn.net/u012260238/article/details/52713546
+前面文章在最后一步有问题
+https://blog.csdn.net/Rxiang12/article/details/79160570
+
+只需要将类型由GRUB（legacy）改成GRUB 2即可，如果仍然失败，可以多建几个不同配置的菜单引导，进入系统时，逐个尝试。如果配置不对，系统无法进入，只需使用Ctrl+Alt+Delete重启电脑，重新选择即可。
