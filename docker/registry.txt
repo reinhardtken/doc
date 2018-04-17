@@ -1,0 +1,35 @@
+https://docs.docker.com/registry/deploying/#customize-the-published-port
+
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+
+指定目录：
+docker run -d -p 5000:5000 --restart=always --name registry -v /home/ken/workspace/data/docker-registry:/var/lib/registry registry:2
+  
+  
+  
+标记一个docker
+docker tag alpine localhost:5000/my-alpine
+
+提交这个docker
+docker push localhost:5000/my-alpine
+
+本地删除
+docker image remove alpine
+docker image remove localhost:5000/my-alpine
+ 
+拉取这个docker
+docker pull localhost:5000/my-alpine
+
+tag到本地？
+docker tag localhost:5000/my-alpine alpine
+===================================================================
+打包带走
+tar -czvf  my_docker_registry.tar.gz  ./docker-registry
+
+
+==========================================================
+在其他的物理机上pull这个镜像
+docker run -d -p 5000:5000 --restart=always --name registry -v /home/ken/workspace/data/docker-registry:/var/lib/registry registry:2
+
+docker pull 192.168.1.78:5000/my-alpine
+
