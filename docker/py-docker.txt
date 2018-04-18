@@ -1,0 +1,56 @@
+1 传统路径遇到了问题，docker机器无法访问主机的port
+docker里面明明可以访问主机中的gitlab服务
+root@b635648aed04:/# wget 172.17.0.1:8080
+--2018-04-17 21:21:18--  http://172.17.0.1:8080/
+Connecting to 172.17.0.1:8080... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: http://172.17.0.1:8080/users/sign_in [following]
+--2018-04-17 21:21:18--  http://172.17.0.1:8080/users/sign_in
+Reusing existing connection to 172.17.0.1:8080.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [text/html]
+Saving to: 'index.html.2'
+
+index.html.2                            [ <=>                                                              ]  10.38K  --.-KB/s    in 0s      
+
+2018-04-17 21:21:18 (260 MB/s) - 'index.html.2' saved [10632]
+
+root@b635648aed04:/# 
+
+
+设置代理后是拒绝
+root@b635648aed04:/# export http_proxy="http://172.17.0.1:8118"
+root@b635648aed04:/# 
+root@b635648aed04:/# export https_proxy="https://172.17.0.1:8118"
+root@b635648aed04:/# wget www.baidu.com
+--2018-04-17 21:22:47--  http://www.baidu.com/
+Connecting to 172.17.0.1:8118... failed: Connection refused.
+root@b635648aed04:/# 
+
+
+这个居然也拒绝？
+root@b635648aed04:/# export http_proxy="http://172.17.0.1:811"
+root@b635648aed04:/# wget www.baidu.com
+--2018-04-17 21:23:50--  http://www.baidu.com/
+Connecting to 172.17.0.1:811... failed: Connection refused.
+
+
+
+2 直接省事的办法
+docker run -it --net=host -v /home/ken/workspace/code/py:/home/ken/workspace/code/py --name py-docker ubuntu:latest 
+
+export http_proxy="http://localhost:8118"
+export https_proxy="http://localhost:8118"
+然后代理ok
+
+3 装好所有库后，此docker再变回桥接模式也没问题，毕竟真搞回测，这就是应该黑箱
+
+
+https://www.cnblogs.com/ydf0509/p/7772065.html
+为啥感觉方法2更简单啊。。。其实我要的就是一个remote的调试器。以及调试器带的环境。让pycharm看到docker感觉没啥好处啊。理想的就是docker里面有整个py环境。我的py代码和db数据在外面
+
+
+https://www.jetbrains.com/help/pycharm/using-docker-as-a-remote-interpreter.html
+按照这个帖子add remote py解释器始终不成功。
+原因：这里选中的镜像要已经有py了。不能是跑起来的实例里面后来装了py
+而且调试的时候，自己产生docker

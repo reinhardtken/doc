@@ -1,4 +1,4 @@
-ss官方docker
+﻿ss官方docker
 docker pull shadowsocks/shadowsocks-libev
 没用这个。。。
 
@@ -7,6 +7,19 @@ hub上国人一个开了kpctun的docker，可我暂时用不上kpctun啊
 https://hub.docker.com/r/mritd/shadowsocks/
 docker run -it --name ssclient -p 1081:1080 mritd/shadowsocks -m "ss-local" -s "-s 47.89.245.134 -p 3389 -b 0.0.0.0 -l 1080 -m aes-256-cfb -k shadowsocks --fast-open -v" 
 
+
+
+
+
+=========================
+以下配置实操可用。可是因为ssserver本身无法翻墙，所以没意义
+ssserver -s 0.0.0.0 -p 6443 -m aes-256-cfb -k ken123 --fast-open
+./server_linux_amd64 -t 127.0.0.1:6443 -l :6500 -mode fast2
+
+sslocal -s 127.0.0.1 -p 6499 -b 0.0.0.0 -l 1082 -m aes-256-cfb -k ken123 --fast-open 
+kcpclient -r 0.0.0.0:6500 -l :6499 -mode fast2
+
+==========================
 
 关于参数的说明：
 

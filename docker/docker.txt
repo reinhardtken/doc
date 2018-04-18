@@ -1,4 +1,4 @@
-0 install 
+﻿0 install 
 https://docs.docker.com/install/linux/docker-ce/ubuntu/#extra-steps-for-aufs
 
 sudo apt-get remove docker docker-engine docker.io
@@ -51,6 +51,11 @@ docker commit -m="install python" 51d629c437d5 reinhardtken/test2
 51d629c437d5  是之前运行实例的id
 reinhardtken/test2 是希望的本地仓库名字
 
+提交到远程==========
+首先要login，不然提示的的错误是id不对。。。
+docker login
+docker tag py-docker reinhardtken/py-docker
+docker push reinhardtken/py-docker
 
 
 控制台attach==========================================================================

@@ -1,4 +1,5 @@
-﻿https://docs.gitlab.com/omnibus/docker/
+﻿本地git仓库管理
+https://docs.gitlab.com/omnibus/docker/
 
 安装
 docker pull gitlab/gitlab-ee:latest
