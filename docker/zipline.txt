@@ -1,0 +1,14 @@
+基于https://github.com/zhanghan1990/zipline-chinese
+把所有运行环境放在此docker中，examples下面的例子跑通
+
+注意事项：
+1 docker不包含mongodb的数据，通过data/constants.py的配置拉取数据，docker中目前的配置如下：
+IP="172.17.0.1"
+PORT=27017
+主机及端口与此不符的，需要通过docker cp方式更新此文件，然后commit产生新images。
+
+2 pycharm通过docker方式调试时，Docker container settings中的Network mode需要改成“host”模式，不然最后绘制的时候backend_interagg.py会报connect错误。怀疑是pycharm的bug。理论上把此文件的HOST = 'localhost'改成主机ip应该也行，但未验证。
+
+3 git仓库位置：/home/root_workspace/github/zipline
+
+4 调试用pycharm版本：2018.1.1

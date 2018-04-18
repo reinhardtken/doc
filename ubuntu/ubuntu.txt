@@ -18,9 +18,13 @@ sslocal -c /etc/shadowsocks.json
 http代理
 sudo apt-get install python-m2crypto privoxy
 
-配置
+配置，本机物理网卡？可用
 sudo gedit /etc/privoxy/config
 listen-address localhost:8118
+forward-socks5 / 127.0.0.1:1080 .
+配置，本机所有网卡可用
+sudo gedit /etc/privoxy/config
+listen-address :8118
 forward-socks5 / 127.0.0.1:1080 .
 启动
 sudo service privoxy restart

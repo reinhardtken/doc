@@ -1,0 +1,12 @@
+设置全网监听
+sudo gedit /etc/mongodb.conf
+
+下面这个没用，这个连本机都连不上了
+bind_ip = 0.0.0.0
+下面这个可以，但是感觉略low啊
+bind_ip = 127.0.0.1,172.17.0.1
+
+
+sudo service mongodb stop
+sudo service mongodb start
+sudo service mongodb restart

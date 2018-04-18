@@ -61,3 +61,7 @@ docker push reinhardtken/py-docker
 控制台attach==========================================================================
 docker exec -t -i website /bin/bash
 
+传输文件
+docker cp /home/ken/workspace/temp/constants.py 48c82466a51d:/home/root_workspace/github/zipline/zipline/data
+
+
