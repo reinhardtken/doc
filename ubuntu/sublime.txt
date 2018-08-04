@@ -1,0 +1,4 @@
+官网的安装指导不好使！！！
+https://www.sublimetext.com/docs/3/linux_repositories.html#apt
+直接官网下载：
+https://www.sublimetext.com/3

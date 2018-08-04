@@ -1,0 +1,7 @@
+即使export了代理，sudo的时候仍旧无法连接https的源
+
+https://www.cnblogs.com/lddhbu/archive/2013/03/12/2955383.html
+
+根据以上文章判断是普通bash里面的环境变量，sudo之后看不到了
+sudo bash
+后，export解决问题

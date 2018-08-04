@@ -1,0 +1,58 @@
+更新apt源
+　　sudo add-apt-repository ppa:nginx/stable 
+　　sudo apt-get update
+
+安装Nginx
+　　sudo apt-get install nginx
+　　Nginx安装完默认以经启动
+
+sudo service nginx start
+sudo service nginx stop
+sudo service nginx restart
+
+
+支持php
+
+配置Nginx
+sudo gedit /etc/nginx/sites-available/default
+
+old:
+# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html ;
+news;
+# Add index.php to the list if you are using PHP
+	index index.html index.htm index.nginx-debian.html index.php;
+
+location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	
+		# With php-fpm (or other unix sockets):
+		fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+		# With php-cgi (or other tcp sockets):
+		fastcgi_pass 127.0.0.1:9000;
+}
+
+检查配置文件修改，发觉修改有误
+nginx -t
+nginx: [alert] could not open error log file: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+2018/08/04 01:45:48 [warn] 22067#22067: the "user" directive makes sense only if the master process runs with super-user privileges, ignored in /etc/nginx/nginx.conf:1
+2018/08/04 01:45:48 [emerg] 22067#22067: "fastcgi_pass" directive is duplicate in /etc/nginx/sites-enabled/default:62
+nginx: configuration file /etc/nginx/nginx.conf test failed
+
+重新修改
+location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	
+		# With php-fpm (or other unix sockets):
+		fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+		# With php-cgi (or other tcp sockets):
+		#fastcgi_pass 127.0.0.1:9000;
+}
+
+sudo service nginx restart
+
+
+测试
+在/var/www/html新建index.php文件测试看看，
+sudo gedit /var/www/html/index.php
+<?php phpinfo();?>

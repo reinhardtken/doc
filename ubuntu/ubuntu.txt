@@ -14,6 +14,17 @@ sudo gedit /etc/shadowsocks.json
 
 启动ss
 sslocal -c /etc/shadowsocks.json
+#在ubuntu18.04启动报错##################################################################
+undefined symbol: EVP_CIPHER_CTX_cleanup
+解决方案：https://blog.csdn.net/blackfrog_unique/article/details/60320737
+sudo gedit /usr/local/lib/python2.7/dist-packages/shadowsocks/crypto/openssl.py
+
+
+将第52行libcrypto.EVP_CIPHER_CTX_cleanup.argtypes = (c_void_p,) 
+改为libcrypto.EVP_CIPHER_CTX_reset.argtypes = (c_void_p,)
+再次搜索cleanup（全文件共2处，此处位于111行），将libcrypto.EVP_CIPHER_CTX_cleanup(self._ctx) 
+改为libcrypto.EVP_CIPHER_CTX_reset(self._ctx)
+########################################################################################
 
 http代理
 sudo apt-get install python-m2crypto privoxy
@@ -31,7 +42,7 @@ sudo service privoxy restart
 
 
 export http_proxy="http://localhost:8118"
-export https_proxy="https://localhost:8118"
+export https_proxy="http://localhost:8118"
 
 
 
@@ -85,3 +96,34 @@ export https_proxy="https://localhost:8118"
 sudo add-apt-repository ppa:mystic-mirage/pycharm
 sudo apt update
 sudo apt install pycharm-community
+
+
+7 安装py3
+sudo apt-get install python3.7
+
+pip3
+sudo apt install python3-pip
+pip3 install virtualenv
+
+
+7.5 安装dev版本
+很多库报Python.h找不到。
+下载
+https://www.python.org/downloads/release/python-370/
+配置
+./configure --enable-optimizations
+编译
+make
+
+sudo apt-get install zlib1g-dev
+sudo apt-get install libffi-dev
+安装
+make install
+文件装在/usr/local/bin下面了，但后面没走通过
+
+8 修改字体
+sudo apt-get isntall  unity-tweak-tool
+sudo apt-get install notify-osd
+sudo apt-get install overlay-scrollbar
+运行：unity-tweak-tool
+
