@@ -1,4 +1,4 @@
-更新apt源
+﻿更新apt源
 　　sudo add-apt-repository ppa:nginx/stable 
 　　sudo apt-get update
 
@@ -56,3 +56,35 @@ sudo service nginx restart
 在/var/www/html新建index.php文件测试看看，
 sudo gedit /var/www/html/index.php
 <?php phpinfo();?>
+
+
+
+
+域名配置：
+
+sudo gedit /etc/nginx/sites-available/default
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name example7.com;
+
+	root /home/ken/workspace/code/self/github/php/example;
+	index index.html index.php;
+
+location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	
+		# With php-fpm (or other unix sockets):
+		fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
+		# With php-cgi (or other tcp sockets):
+		#fastcgi_pass 127.0.0.1:9000;
+}
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+
+域名绑定
+sudo gedit /etc/hosts

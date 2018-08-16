@@ -23,8 +23,28 @@ pecl install mongodb
 ##在php.ini中添加:extension=mongodb.so
 sudo gedit /etc/php/7.1/fpm/php.ini
 sudo gedit /etc/php/7.1/cli/php.ini
-sudo gedit /etc/php/7.1/fpm/php.ini
+
 打开注释，cgi.fix_pathinfo=1 改为 cgi.fix_pathinfo=0
 ##重启php-fpm
 service php7.1-fpm restart
 
+
+
+
+
+
+再php中使用mongodb失败，怀疑没装对地方
+
+
+切换PHP版本
+sudo update-alternatives --config php
+
+再装一次
+sudo pecl install mongodb
+
+重启php
+service php7.1-fpm restart
+
+
+
+如果ok，在phpinfo里面可以搜到mongodb
