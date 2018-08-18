@@ -10,7 +10,7 @@ xdebug.remote_port=9000
 xdebug.remote_host = "localhost"
 
 https://www.jb51.net/article/128545.htm
-´Ó¡°PHPStormÔËÐÐµ÷ÊÔÅäÖÃ¡±¿ªÊ¼ÕÕ×ÅÉèÖÃ
+ä»Žâ€œPHPStormè¿è¡Œè°ƒè¯•é…ç½®â€å¼€å§‹ç…§ç€è®¾ç½®
 
-¡°Start URL ÎªÄãµÄÏîÄ¿µÄ·ÃÎÊµØÖ·£¬Õâ¸öÊÇÐèÒªÔÚÄãµÄ·þÎñÆ÷£¨Apache»òÕßnginx£©ÖÐÅäÖÃµÄ¡£¡±
-ÒÔÉÏÎÄ×Öº¬Òå£¬ÊÇÖ¸ÒªÏÈÔÚngixÀïÃæÉèÖÃºÃÓòÃûµ½Â·¾¶µÄÅäÖÃ
+â€œStart URL ä¸ºä½ çš„é¡¹ç›®çš„è®¿é—®åœ°å€ï¼Œè¿™ä¸ªæ˜¯éœ€è¦åœ¨ä½ çš„æœåŠ¡å™¨ï¼ˆApacheæˆ–è€…nginxï¼‰ä¸­é…ç½®çš„ã€‚â€
+ä»¥ä¸Šæ–‡å­—å«ä¹‰ï¼Œæ˜¯æŒ‡è¦å…ˆåœ¨ngixé‡Œé¢è®¾ç½®å¥½åŸŸååˆ°è·¯å¾„çš„é…ç½®

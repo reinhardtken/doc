@@ -1,4 +1,4 @@
-°²×°
+å®‰è£…
 sudo apt-get install apt-transport-https lsb-release ca-certificates
 
 sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
@@ -11,21 +11,21 @@ sudo apt-get update
 sudo apt-get install php7.1
 
 
-°²×°ÆäËû
-#Ìí¼ÓphpÔ´
+å®‰è£…å…¶ä»–
+#æ·»åŠ phpæº
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 
-phpµÄÒ»Ğ©°ü
+phpçš„ä¸€äº›åŒ…
 sudo apt-get -y install php7.1-mysql php7.1-fpm php7.1-dev php7.1-xml php-pear
 
 pecl install mongodb
-##ÔÚphp.iniÖĞÌí¼Ó:extension=mongodb.so
+##åœ¨php.iniä¸­æ·»åŠ :extension=mongodb.so
 sudo gedit /etc/php/7.1/fpm/php.ini
 sudo gedit /etc/php/7.1/cli/php.ini
 
-´ò¿ª×¢ÊÍ£¬cgi.fix_pathinfo=1 ¸ÄÎª cgi.fix_pathinfo=0
-##ÖØÆôphp-fpm
+æ‰“å¼€æ³¨é‡Šï¼Œcgi.fix_pathinfo=1 æ”¹ä¸º cgi.fix_pathinfo=0
+##é‡å¯php-fpm
 service php7.1-fpm restart
 
 
@@ -33,18 +33,18 @@ service php7.1-fpm restart
 
 
 
-ÔÙphpÖĞÊ¹ÓÃmongodbÊ§°Ü£¬»³ÒÉÃ»×°¶ÔµØ·½
+å†phpä¸­ä½¿ç”¨mongodbå¤±è´¥ï¼Œæ€€ç–‘æ²¡è£…å¯¹åœ°æ–¹
 
 
-ÇĞ»»PHP°æ±¾
+åˆ‡æ¢PHPç‰ˆæœ¬
 sudo update-alternatives --config php
 
-ÔÙ×°Ò»´Î
+å†è£…ä¸€æ¬¡
 sudo pecl install mongodb
 
-ÖØÆôphp
+é‡å¯php
 service php7.1-fpm restart
 
 
 
-Èç¹ûok£¬ÔÚphpinfoÀïÃæ¿ÉÒÔËÑµ½mongodb
+å¦‚æœokï¼Œåœ¨phpinfoé‡Œé¢å¯ä»¥æœåˆ°mongodb
