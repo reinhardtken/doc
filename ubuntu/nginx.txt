@@ -1,4 +1,4 @@
-﻿更新apt源
+更新apt源
 　　sudo add-apt-repository ppa:nginx/stable 
 　　sudo apt-get update
 

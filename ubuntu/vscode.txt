@@ -1,11 +1,11 @@
-ÉèÖÃ
+è®¾ç½®
 {
     "editor.fontSize": 14,
     "window.zoomLevel": 2
 }
 
 
-°²×°
+å®‰è£…
 sudo add-apt-repository ppa:ubuntu-desktop/ubuntu-make
 sudo apt-get update
 sudo apt-get install ubuntu-make
