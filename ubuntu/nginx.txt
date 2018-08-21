@@ -29,7 +29,7 @@ location ~ \.php$ {
 		# With php-fpm (or other unix sockets):
 		fastcgi_pass unix:/var/run/php/php7.1-fpm.sock;
 		# With php-cgi (or other tcp sockets):
-		fastcgi_pass 127.0.0.1:9000;
+		#fastcgi_pass 127.0.0.1:9000;
 }
 
 检查配置文件修改，发觉修改有误
@@ -88,3 +88,22 @@ location ~ \.php$ {
 
 域名绑定
 sudo gedit /etc/hosts
+
+
+restart failed
+systemctl status nginx.service
+
+reason:
+8月 18 17:02:33 ken-Ubuntu nginx[22417]: nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)
+8月 18 17:02:34 ken-Ubuntu nginx[22417]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+8月 18 17:02:34 ken-Ubuntu nginx[22417]: nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)
+8月 18 17:02:34 ken-Ubuntu nginx[22417]: nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)
+8月 18 17:02:34 ken-Ubuntu nginx[22417]: nginx: [emerg] bind() to [::]:80 failed (98: Address already in use)
+8月 18 17:02:35 ken-Ubuntu nginx[22417]: nginx: [emerg] still could not bind()
+
+
+I think ss make it. change sockets
+
+
+
+

@@ -1,5 +1,17 @@
 sudo apt-get install php-xdebug
 
+check:
+php7.1 -v
+PHP 7.1.20-1+ubuntu16.04.1+deb.sury.org+1 (cli) (built: Jul 25 2018 10:06:40) ( NTS )
+Copyright (c) 1997-2018 The PHP Group
+Zend Engine v3.1.0, Copyright (c) 1998-2018 Zend Technologies
+    with Zend OPcache v7.1.20-1+ubuntu16.04.1+deb.sury.org+1, Copyright (c) 1999-2018, by Zend Technologies
+    with Xdebug v2.6.0, Copyright (c) 2002-2018, by Derick Rethans
+
+
+
+
+
 sudo gedit /etc/php/7.1/mods-available/xdebug.ini
 
 zend_extension = xdebug.so
@@ -9,8 +21,24 @@ xdebug.remote_enable = 1
 xdebug.remote_port=9000
 xdebug.remote_host = "localhost"
 
+restart php
+
+
 https://www.jb51.net/article/128545.htm
 从“PHPStorm运行调试配置”开始照着设置
 
 “Start URL 为你的项目的访问地址，这个是需要在你的服务器（Apache或者nginx）中配置的。”
 以上文字含义，是指要先在ngix里面设置好域名到路径的配置
+
+
+php5.6
+sudo gedit /etc/php/5.6/mods-available/xdebug.ini
+
+zend_extension = xdebug.so
+xdebug.profiler_enable = 1
+xdebug.profiler_output_dir = "/tmp"
+xdebug.remote_enable = 1
+xdebug.remote_port=9000
+xdebug.remote_host = "localhost"
+
+restart php
