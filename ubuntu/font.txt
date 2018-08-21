@@ -1,0 +1,10 @@
+http://vdisk.weibo.com/s/voqVOI51n-e
+
+sudo mkdir /usr/share/fonts/truetype/windows-font
+sudo cp /home/ken/workspace/font/* /usr/share/fonts/truetype/windows-font
+
+sudo chmod -R 755  /usr/share/fonts/truetype/windows-font
+cd /usr/share/fonts/truetype/windows-font
+sudo mkfontscale
+sudo mkfontdir
+sudo fc-cache -fv

@@ -1,0 +1,6 @@
+关联远程
+git remote add origin https://github.com/reinhardtken/php.git
+查看远程
+git remote -v
+origin  https://github.com/reinhardtken/doc.git (fetch)
+origin  https://github.com/reinhardtken/doc.git (push)
