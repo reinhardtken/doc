@@ -16,3 +16,25 @@ http://example7.com/yii/requirements.php
 work
 http://example7.com/yii/web/index.php
 这个work，应该是ok了
+
+
+yii Gii的时候，会产生Unable to write the file '/var/www/html/blog/protected/models/User.php'这个错误
+这是因为web server没有权限写 models这个目录，而实际上不应该在生产上开放这个目录的写权限。
+我们在开发环境上，解决这个问题的话，直接 chmod 777 /var/www/html/blog/protected/models
+
+chmod 777 /home/ken/workspace/code/self/github/php/example/yiitest/models
+chown www-data:www-data /home/ken/workspace/code/self/github/php/example/yiitest/models
+above not work alone
+rename file finally work....
+
+not work
+chmod 777 /home/ken/workspace/code/self/github/php/example/yiitest/views
+
+not work
+chown www-data:www-data /home/ken/workspace/code/self/github/php/example/yiitest/views
+
+work
+chmod 777 /home/ken/workspace/code/self/github/php/example/yiitest/views/country
+
+1 chmod 777
+2 file not exist
