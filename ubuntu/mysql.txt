@@ -1,0 +1,57 @@
+sudo apt-get install mysql-client mysql-server
+
+装完就是没密码，智障
+http://www.cnblogs.com/super-zhangkun/p/9435974.html
+sudo gedit /etc/mysql/debian.cnf
+拿到账户和密码登陆
+mysql -udebian-sys-maint -p4EMphAgLQqUzKJDV
+然后再修改root的账户密码：
+show databases;
+use mysql;
+update user set authentication_string=PASSWORD("123456") where User='root';
+update user set plugin="mysql_native_password"; 
+flush privileges;
+quit;
+
+sudo /etc/init.d/mysql restart
+
+控制UI
+sudo apt-get install mysql-workbench
+
+删除重装，忘了密码了。。。
+
+sudo apt purge mysql-*
+sudo rm -rf /etc/mysql/ /var/lib/mysql
+sudo apt autoremove
+sudo apt autoclean
+
+重装也没用。。。
+Ubuntu忘记MySQL密码重设方法
+https://www.cnblogs.com/roadofstudy/p/7446690.html
+
+
+sudo /etc/init.d/mysql stop
+sudo /usr/bin/mysqld_safe --skip-grant-tables --skip-networking &
+
+sudo mkdir -p /var/run/mysqld
+sudo chown mysql:mysql /var/run/mysqld
+
+
+sudo /usr/bin/mysqld_safe --skip-grant-tables --skip-networking &
+
+mysql -u root
+
+show databases;
+use mysql;
+update user set authentication_string=PASSWORD("123456") where User='root';
+update user set plugin="mysql_native_password"; 
+flush privileges;
+quit;
+
+
+
+sudo /etc/init.d/mysql stop
+sudo /etc/init.d/mysql start
+mysql -u root -p
+
+实操失败。。。

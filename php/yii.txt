@@ -1,0 +1,18 @@
+依赖
+sudo apt-get install php7.1-mbstring
+
+要翻墙
+composer create-project --prefer-dist yiisoft/yii2-app-basic yii
+
+
+验证
+php yii serve --port=8877
+安装完成后，就可以使用浏览器通过如下 URL 访问刚安装完的 Yii 应用了：
+http://localhost:8877/
+
+以上不work
+以下
+http://example7.com/yii/requirements.php
+work
+http://example7.com/yii/web/index.php
+这个work，应该是ok了
