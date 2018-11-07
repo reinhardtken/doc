@@ -127,3 +127,10 @@ sudo apt-get install notify-osd
 sudo apt-get install overlay-scrollbar
 运行：unity-tweak-tool
 
+
+安装输入法
+https://pinyin.sogou.com/linux/
+18.04
+https://blog.csdn.net/lupengCSDN/article/details/80279177
+
+搞完第一次重启输入看不到中文候选集，需要再次重启，不知道什么鬼

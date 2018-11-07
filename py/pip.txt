@@ -1,0 +1,2 @@
+pip总是拉不到包的时候，可以考虑国内的服务器
+pip install mock -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com

@@ -1,0 +1,14 @@
+安装图形界面
+yum groupinstall "GNOME Desktop"
+
+启动界面
+startx
+
+
+mv /etc/yum.repos.d/CentOS-Base.repo.backup /etc/yum.repos.d/CentOS-Base.repo 
+
+安装 ss（不然别的都装不上）
+
+安装mongdb
+curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.2.12.tgz
+

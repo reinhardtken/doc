@@ -36,5 +36,9 @@ chown www-data:www-data /home/ken/workspace/code/self/github/php/example/yiitest
 work
 chmod 777 /home/ken/workspace/code/self/github/php/example/yiitest/views/country
 
+chmod 777 /home/ken/workspace/tmp
+
 1 chmod 777
 2 file not exist
+
+chmod -R 777 目录下所有文件
