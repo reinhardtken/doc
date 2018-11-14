@@ -1,2 +1,67 @@
 pip总是拉不到包的时候，可以考虑国内的服务器
 pip install mock -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+
+
+
+pip install M2Crypto==========================================
+报错
+ error: Unable to find vcvarsall.bat
+
+
+先安装工具链
+Microsoft Visual C++ Compiler for Python 2.7
+https://www.microsoft.com/en-us/download/details.aspx?id=44266
+
+
+还是报错
+https://blog.csdn.net/donger_soft/article/details/44838109
+https://blog.csdn.net/lushilun/article/details/78621199
+报这个错误的原因是Python的distutils模块中的msvc9compiler.py并不从环境变量指定的路径中寻找’vcvarsall.bat’，而是通过注册表来寻找…，然而，不知为什么编译器安装过程没有配置注册表。
+
+解决办法： 
+只要手工把注册表配置好，就可以了。 
+// 1、打开注册表编辑器 
+run regedit 
+// 2、配置 
+// 2.1、如果你安装的Python是32位的，则，创建如下项： 
+HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\9.0\Setup\VC 
+// 2.2、如果你安装的Python是64位的，则，创建如下项： 
+HKEY_CURRENT_USER\Software\Wow6432Node\Microsoft\VisualStudio\9.0\Setup\VC 
+// 3、并在此项下新建字符串值： 
+名称：productdir 
+数据：vcvarsall.bat所在路径 
+注意：路径中不包含最后的反斜杠。
+
+
+
+用楼主的方法解决了。不过网上看了很多贴，好像因为装的python版本不同解决办法不同。 其实大家可以 在..\Python27\Lib\distutils 文件夹下找到msvc9compiler.py或者msvccompiler.py查看一个叫做find_vcvarsall的函数看代码就知道了，当出现这样error的时候应该怎样解决。
+
+
+安装完成后的路径为: 
+C:\Users\Administrator\AppData\Local\Programs\Common\Microsoft\Visual C++ for Python\9.0
+
+这么个狗屎路径我真的是服了
+============================================================
+按以上方法解决了编译工具问题。新问题如下：
+ fatal error C1083: Cannot open include file: 'openssl/err.h'
+
+
+对比如下两个链接
+https://pypi.org/project/M2CryptoWin32/
+https://pypi.org/project/M2Crypto/
+
+参考这篇文章
+https://blog.csdn.net/tty521/article/details/79518373
+
+pip install wheel
+pip install cryptography
+pip install M2CryptoWin32
+似乎能达到同样效果。
+
+
+error: option --single-version-externally-managed not recognized
+
+解决方法
+pip install --egg M2CryptoWin32 -i http://pypi.douban.com/simple/ --trusted-host pypi.douban.com
+
+
