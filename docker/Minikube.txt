@@ -24,7 +24,7 @@ Minikube 也支持 --vm-driver=none 选项来在本机运行 Kubernetes 组件�
 
 
 启动
-minikube start --vm-driver=none
+minikube start --v=7 --vm-driver=none
 
 提示错误：
 Kubernetes version downgrade is not supported. Using version: v1.13.3
@@ -52,6 +52,60 @@ https://www.cnblogs.com/furzoom/p/7710147.html
 加路径
 
 kubeadm reset
+
+
+查看日志
+minikube logs
+
+
+
+minikube的逻辑是创建一个vm，在这个vm里去运行k8s需要的各种docker image
+
+所以：
+1、我们在命令行上添加的http_proxy变量，只是影响当前命令本身，不可能使在vm里执行的其它命令也走代理。
+2、在主机上运行的docker images查看的只是主机上已下载的images，并不是vm里的，vm里启动的docker自然还要再去下载
+
+想通了原因，那么首先做个测试，
+
+    minikube ssh
+
+进到vm里，然后修改/etc/systemd/system/docker.service.d/http-proxy.conf这个文件：
+
+    [Service]
+    Environment=”HTTP_PROXY=https://proxy.example.com:443/"
+    Environment=”HTTPS_PROXY=https://proxy.example.com:443/"
+
+重新启动docker daemon：
+
+    $ sudo systemctl daemon-reload
+    $ sudo systemctl restart docker
+
+这时可以发现代理的流量监测已经噌噌地往上冒，达到几MB/s
+说明vm内的docker已经开始连上gcr在下载image了！
+等它下载完，主机上卡住的minikube start命令也顺利过去了，
+最终minikube也正常启动起来了，以下命令打开web控件面板：
+
+    minikube dashboard
+
+
+后记：
+
+虽然通过手动修改vm中的docker配置文件设置了代理，但毕竟繁琐，如果minikube重装（或是换参数重启了），vm似乎都被重置，这个过程又要手动做一遍！
+其实在minikube本来就有一个命令行参数来设置新建的vm中docker所属环境变量：
+
+    $ minikube start --docker-env HTTP_PROXY=${http_proxy} --docker-env HTTPS_PROXY=${https_proxy} --docker-env NO_PROXY=192.168.99.0/24
+
+这样新建出来的vm，它的docker配置文件里就自带了这些环境变量，可以ssh进去查看，也可以用相关命令直接显示：
+
+    minikube ssh -- systemctl show docker -–property=Environment –no-pager
+
+另外，如果要给容器内的程序设置代理，可在docker run中指定参数
+
+    docker container run \
+    -e HTTP_PROXY=http://username:password@proxy2.domain.com \
+    -e HTTPS_PROXY=http://username:password@proxy2.domain.com \
+    myimage
+
 
 
 
