@@ -1,0 +1,2 @@
+set ERLANG_HOME=C:\Progra~1\erl10.2
+set ERLANG_SERVICE_MANAGER_PATH=C:\Progra~1\erl10.2\erts-10.2\bin

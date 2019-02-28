@@ -87,4 +87,77 @@ docker exec -t -i website /bin/bash
 传输文件
 docker cp /home/ken/workspace/temp/constants.py 48c82466a51d:/home/root_workspace/github/zipline/zipline/data
 
+2019/2/27###########################################################
+尝试在14.04上运行docker
+docker: Error response from daemon: OCI runtime create failed: container_linux.go:348: starting container process caused "process_linux.go:297: copying bootstrap data to pipe caused \"write init-p: broken pipe\"": unknown.
+
+怀疑是ubuntu的内核版本太低了。
+https://forums.docker.com/t/centos7-docker-hello-world-fails/68941
+这个帖子说的是centos内核版本太低了
+
+uname -r
+3.13.0-128-generic
+docker -v
+Docker version 18.06.3-ce, build d7080c1
+
+升级内核版本：
+https://blog.csdn.net/u010073981/article/details/78988853
+
+
+sudo dpkg -i  \
+linux-headers-4.4.40-040440_4.4.40-040440.201701060808_all.deb \
+linux-image-4.4.40-040440-generic_4.4.40-040440.201701060808_amd64.deb \
+linux-headers-4.4.40-040440-generic_4.4.40-040440.201701060808_amd64.deb
+
+
+更新引导
+sudo update-grub
+重启
+sudo reboot
+
+
+结果gcc版本又低了，这个内核编译不出来。。。
+unrecognized command line option ‘-fstack-protector-strong’
+
+升级gcc
+https://blog.csdn.net/qingrenufo/article/details/78661513
+
+sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+sudo apt-get install software-properties-common
+sudo apt-get update
+sudo apt-get install gcc-5 g++-5
+
+更新链接
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 53 \
+--slave /usr/bin/g++ g++ /usr/bin/g++-5 \
+--slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-5 \
+--slave /usr/bin/gcc-nm gcc-nm /usr/bin/gcc-nm-5 \
+--slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-5
+
+再次运行docker，还是有问题：
+sudo service docker status
+docker stop/waiting
+
+查看日志： /var/log/upstart/docker.log
+FATAL: Module aufs not found
+
+安装aufs
+sudo apt-get install lxc wget bsdtar curl
+sudo apt-get install linux-image-extra-$(uname -r)
+上面的不好使，说找不到包，去https://packages.ubuntu.com/search?suite=default&arch=amd64&searchon=names&keywords=linux-image-extra-4.4
+找到最新的，也就是下面这个
+sudo apt-get install linux-image-extra-4.4.0-98-generic
+执行下面的，还是报找不到
+sudo modprobe aufs
+
+最后决定升级ubuntu到16.。。
+do-release-upgrade
+
+
+频繁被墙，决定试试国内镜像
+为了永久性保留更改，您可以修改 /etc/docker/daemon.json 文件并添加上 registry-mirrors 键值。
+
+{
+  "registry-mirrors": ["https://registry.docker-cn.com"]
+}
 

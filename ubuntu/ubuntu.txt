@@ -134,3 +134,49 @@ https://pinyin.sogou.com/linux/
 https://blog.csdn.net/lupengCSDN/article/details/80279177
 
 搞完第一次重启输入看不到中文候选集，需要再次重启，不知道什么鬼
+
+
+
+2019/2/29
+hp440服务器，从14.04，升级16.04
+升级完成发现进入不了系统。但是可以进入recovery
+Ctrl+ALT+F1 进入控制台成功。
+说明系统是ok的，只是图形起不来
+journalctl -u lightdm
+提示 PAM unable to dlopen pam_kwallet.so no such file
+
+查看登录日志
+/var/log/auth.log
+完整的出错信息
+Feb 28 13:21:10 browser-HP-Z440-Workstation lightdm: PAM unable to dlopen(pam_kwallet.so): /lib/security/pam_kwallet.so: cannot open shared object file: No such file or directory
+
+
+apt也坏了。。
+apt
+apt: relocation error: /usr/lib/x86_64-linux-gnu/libapt-pkg.so.5.0: symbol _ZNKSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEE7compareERKS4_, version GLIBCXX_3.4.21 not defined in file libstdc++.so.6 with link time reference
+问题和下面这个帖子很像
+https://www.helplib.com/ubuntu/article_157424
+说要从https://packages.ubuntu.com/xenial/libstdc++6 下包重装
+dpkg -i 
+结果也提示不ok
+
+sudo apt-add-repository --remove ppa:ubuntu-toolchain-r/test
+sudo apt-get clean
+sudo apt-get update
+sudo apt-get install -f
+如下输出：
+The following packages have unmet dependencies:
+ libstdc++-5-dev : Depends: libstdc++6 (>= 5.5.0-12ubuntu1~14.04) but 5.4.0-6ubuntu1~16.04.10 is installed
+ libstdc++6 : Depends: gcc-5-base (= 5.4.0-6ubuntu1~16.04.10) but 5.5.0-12ubuntu1~14.04 is installed
+              Breaks: libstdc++6:i386 (!= 5.4.0-6ubuntu1~16.04.10) but 8.1.0-5ubuntu1~14.04 is installed
+ libstdc++6:i386 : Breaks: libstdc++6 (!= 8.1.0-5ubuntu1~14.04) but 5.4.0-6ubuntu1~16.04.10 is installed
+E: Error, pkgProblemResolver::Resolve generated breaks, this may be caused by held packages.
+E: Unable to correct dependencies
+然后apt就好了。
+
+
+sudo dpkg -a --configure
+sudo apt-get dist-upgrade
+
+然后反正就ok了，图形界面也能进去了。
+

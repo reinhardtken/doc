@@ -1,0 +1,59 @@
+安装
+https://github.com/kubernetes/minikube/releases
+这里下载 
+docker-machine-driver-kvm2
+minikube-linux-amd64
+
+Requires either the kvm2 driver (recommended), or VirtualBox
+VT-x/AMD-v virtualization must be enabled in BIOS
+
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+以上卡在
+Downloading Minikube ISO ...
+估计是被wall了
+
+https://yq.aliyun.com/articles/221687?p=3
+
+curl -Lo minikube http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.30.0/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+安装kubectl
+sudo snap install kubectl --classic
+
+Minikube 也支持 --vm-driver=none 选项来在本机运行 Kubernetes 组件，这时候需要本机安装了 Docker。
+
+
+启动
+minikube start --vm-driver=none
+
+提示错误：
+Kubernetes version downgrade is not supported. Using version: v1.13.3
+
+
+清理之前的高版本
+minikube delete 删除现有虚机，
+rm -rf ~/.minikube 目录缓存的文件
+
+
+再次启动
+permission denied
+
+sudo
+卡死在
+Starting cluster components...
+
+试试降低版本
+curl -Lo minikube http://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/releases/v0.26.1/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+
+
+kubectl在sudo时候执行不了，平时正常
+/snap/bin/kubectl
+https://www.cnblogs.com/furzoom/p/7710147.html
+加路径
+
+kubeadm reset
+
+
+
+
+
