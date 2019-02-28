@@ -24,7 +24,7 @@ Minikube 也支持 --vm-driver=none 选项来在本机运行 Kubernetes 组件�
 
 
 启动
-minikube start --v=7 --vm-driver=none
+minikube start  --vm-driver=none
 
 提示错误：
 Kubernetes version downgrade is not supported. Using version: v1.13.3
@@ -106,6 +106,13 @@ minikube的逻辑是创建一个vm，在这个vm里去运行k8s需要的各种do
     -e HTTPS_PROXY=http://username:password@proxy2.domain.com \
     myimage
 
+#########################################
+在两个ubuntu上都尝试失败了
+试了一个centos，提示docker版本过高。
+[ERROR SystemVerification]: unsupported docker version: 18.09.2
+
+改装这个版本
+17.03.3.ce-1.el7
 
 
 
