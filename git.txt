@@ -4,3 +4,28 @@ git remote add origin https://github.com/reinhardtken/php.git
 git remote -v
 origin  https://github.com/reinhardtken/doc.git (fetch)
 origin  https://github.com/reinhardtken/doc.git (push)
+
+
+
+#2019/3/11#####################################
+多个账户
+http://www.cnblogs.com/popfisher/p/5731232.html
+
+ssh-keygen -t rsa -C reinhardtken@hotmail.com
+文件名：id_rsa_reinhardtken
+
+编辑config文件
+
+# 配置code.aliyun.com
+Host code.aliyun.com                 
+    HostName code.aliyun.com
+    IdentityFile C:\\Users\\liuqingping\\.ssh\\id_rsa
+    PreferredAuthentications publickey
+    User liuqingping
+
+# 配置github.com
+Host github.com
+    HostName github.com
+    IdentityFile C:\\Users\\popfisher\\.ssh\\id_rsa_reinhardtken
+    PreferredAuthentications publickey
+    User reinhardtken 
